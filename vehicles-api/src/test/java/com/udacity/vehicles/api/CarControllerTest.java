@@ -81,6 +81,7 @@ public class CarControllerTest {
     @Test
     public void createCar() throws Exception {
         Car car = getCar();
+
         mvc.perform(
                 post(new URI("/cars"))
                         .content(json.write(car).getJson())

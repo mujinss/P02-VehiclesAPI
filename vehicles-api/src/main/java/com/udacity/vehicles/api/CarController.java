@@ -93,7 +93,7 @@ class CarController {
          */
         /*Resource<Car> resource = assembler.toResource(new Car());
         return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);*/
-        carService.save(car);
+        car = carService.save(car);
         Resource<Car> resource = assembler.toResource(car);
         return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
     }
