@@ -1,4 +1,4 @@
-package com.udacity.pricing.domain.price;
+package com.udacity.pricing.entity;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -16,8 +16,8 @@ public class Price {
 
     private String currency;
     private BigDecimal price;
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long vehicleId;
 
     public Price() {
