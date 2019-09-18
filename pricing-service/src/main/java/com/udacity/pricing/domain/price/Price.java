@@ -4,6 +4,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -14,7 +16,8 @@ public class Price {
 
     private String currency;
     private BigDecimal price;
-    @Id
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)*/
     private Long vehicleId;
 
     public Price() {
