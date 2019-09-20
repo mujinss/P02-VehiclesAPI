@@ -1,12 +1,11 @@
 package com.udacity.vehicles.api;
 
+import static com.udacity.vehicles.domain.Condition.NEW;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,6 +35,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
@@ -150,6 +150,29 @@ public class CarControllerTest {
                 .andExpect(jsonPath("$.details.manufacturer.name", is(getCar().getDetails().getManufacturer().getName())))
                 .andExpect(jsonPath("$.location.lon", is(getCar().getLocation().getLon())))
                 .andExpect(jsonPath("$.location.lat", is(getCar().getLocation().getLat())));
+
+    }
+
+    /**
+     * Tests the update of a single car by ID.
+     * @throws Exception if the update operation of a vehicle fails
+     */
+    @Test
+    public void updateCar() throws Exception {
+        /**
+         * TODO: Add a test to check that the `put` method works by calling
+         *   a vehicle by ID. This should utilize the car from `getCar()` below.
+         */
+        Car car = getCar();
+        car.setCondition(NEW);
+
+        mvc.perform(
+                MockMvcRequestBuilders.put("/cars/1")
+                        .content(json.write(car).getJson())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.condition", is("NEW")));
 
     }
 
